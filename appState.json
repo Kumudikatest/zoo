@@ -16,13 +16,13 @@
       "ee002c3d-c0c9-406e-a51e-67265109f2a1": {
         "id": "ee002c3d-c0c9-406e-a51e-67265109f2a1",
         "parent": "105e3ecd-d1e3-425f-ab82-d906e105e223",
-        "name": "lambda.js",
+        "name": "uploader.js",
         "type": "JS_LAMBDA",
         "isDirectory": false,
         "children": [],
         "isRemovable": true,
-        "filePath": "zoo/lambda.js",
-        "code": "exports.handler = function(event, context, callback) {\n    console.log(event);\n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "filePath": "zoo/uploader.js",
+        "code": "exports.handler = function(event, context, callback) {\n    console.log(event);\n    callback(null, {\n  \"isBase64Encoded\": true,\n  \"statusCode\": 200,\n  \"headers\": {\n    \"headerName\": \"headerValue\"\n  },\n  \"body\": \"...\"\n});\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -89,7 +89,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1568631654248
+    "lastSave": 1568632014094
   },
   "VCS_STATE": {
     "provider": "GitHub",
