@@ -22,7 +22,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "zoo/uploader.js",
-        "code": "let AWS = require('aws-sdk');\nconst s3 = new AWS.S3();\n\nexports.handler = function (event, context, callback) {\n    let img = Buffer.from(event.body,\"base64\");\n    console.log(event);\n    s3.putObject({\n        \"Body\": img,\n        \"Bucket\": \"zoobucket\",\n        \"Key\": Date.now(),\n        \"ACL\": \"public-read\"\n    })\n        .promise()\n        .then(data => {\n            callback(null, {\n                \"isBase64Encoded\": true,\n                \"statusCode\": 200,\n                \"body\": \"Success\"\n            });\n        })\n        .catch(err => {\n            console.log(err, err.stack);\n        });\n\n\n}",
+        "code": "let AWS = require('aws-sdk');\nconst s3 = new AWS.S3();\n\nexports.handler = function (event, context, callback) {\n    let img = Buffer.from(event.body,\"base64\");\n    console.log(event);\n    s3.putObject({\n        \"Body\": img,\n        \"Bucket\": \"zoobuck\",\n        \"Key\": Date.now(),\n        \"ACL\": \"public-read\"\n    })\n        .promise()\n        .then(data => {\n            callback(null, {\n                \"isBase64Encoded\": true,\n                \"statusCode\": 200,\n                \"body\": \"Success\"\n            });\n        })\n        .catch(err => {\n            console.log(err, err.stack);\n        });\n\n\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -117,7 +117,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1568632965736
+    "lastSave": 1568633072056
   },
   "VCS_STATE": {
     "provider": "GitHub",
