@@ -8,7 +8,8 @@
         "type": "DIRECTORY",
         "isDirectory": true,
         "children": [
-          "ee002c3d-c0c9-406e-a51e-67265109f2a1"
+          "ee002c3d-c0c9-406e-a51e-67265109f2a1",
+          "aefbfb21-1eb6-4c08-b98e-7caf7503db3e"
         ],
         "isRemovable": false,
         "filePath": "zoo"
@@ -22,7 +23,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "zoo/uploader.js",
-        "code": "let AWS = require('aws-sdk');\nconst s3 = new AWS.S3();\n\nexports.handler = function (event, context, callback) {\n    let img = Buffer.from(event.body,\"base64\");\n    console.log(event);\n    s3.putObject({\n        \"Body\": img,\n        \"Bucket\": \"zoobuck\",\n        \"Key\": Date.now(),\n        \"ACL\": \"public-read\"\n    })\n        .promise()\n        .then(data => {\n            callback(null, {\n                \"isBase64Encoded\": true,\n                \"statusCode\": 200,\n                \"body\": \"Success\"\n            });\n        })\n        .catch(err => {\n            console.log(err, err.stack);\n        });\n\n\n}",
+        "code": "let AWS = require('aws-sdk');\nconst s3 = new AWS.S3();\n\nexports.handler = function (event, context, callback) {\n    let img = Buffer.from(event.body,\"base64\");\n    console.log(event);\n    s3.putObject({\n        \"Body\": img,\n        \"Bucket\": \"zoobuck\",\n        \"Key\": string(Date.now()),\n        \"ACL\": \"public-read\"\n    })\n        .promise()\n        .then(data => {\n            callback(null, {\n                \"isBase64Encoded\": true,\n                \"statusCode\": 200,\n                \"body\": \"Success\"\n            });\n        })\n        .catch(err => {\n            console.log(err, err.stack);\n        });\n\n\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -45,13 +46,42 @@
             "eventTemplate": "hello-world"
           }
         }
+      },
+      "aefbfb21-1eb6-4c08-b98e-7caf7503db3e": {
+        "id": "aefbfb21-1eb6-4c08-b98e-7caf7503db3e",
+        "parent": "105e3ecd-d1e3-425f-ab82-d906e105e223",
+        "name": "rekog.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "zoo/rekog.js",
+        "code": "let AWS = require('aws-sdk');\nconst rekog = new AWS.Rekognition();\nexports.handler = function (event, context, callback) {\n    Rekognition.detectabels({\n        Image: {\n            S3Object: {\n                Bucket: bucket,\n                Name: key\n            }\n        },\n        Maxlabels: 1\n    }).promise()\n        .then(data => {\n            \n            console.log(data);\n            callback(null, { \"message\": \"Successfully executed\" });\n        })\n        .catch(err => { \n            callback(err);\n        })\n}",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [
+          {
+            "resourceName": "s3zoobucket",
+            "config": {
+              "type": "s3:ObjectCreated:*",
+              "keyPrefix": "",
+              "keySuffix": ""
+            }
+          }
+        ]
       }
     },
     "rootNode": "105e3ecd-d1e3-425f-ab82-d906e105e223",
     "openFiles": [
-      "ee002c3d-c0c9-406e-a51e-67265109f2a1"
+      "ee002c3d-c0c9-406e-a51e-67265109f2a1",
+      "aefbfb21-1eb6-4c08-b98e-7caf7503db3e"
     ],
-    "currentFileId": "ee002c3d-c0c9-406e-a51e-67265109f2a1",
+    "currentFileId": "aefbfb21-1eb6-4c08-b98e-7caf7503db3e",
     "resources": {
       "apigusEast1ZooMonitoruploadpost": {
         "name": "apigusEast1ZooMonitoruploadpost",
@@ -117,7 +147,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1568633072056
+    "lastSave": 1568635448996
   },
   "VCS_STATE": {
     "provider": "GitHub",

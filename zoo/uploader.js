@@ -7,7 +7,7 @@ exports.handler = function (event, context, callback) {
     s3.putObject({
         "Body": img,
         "Bucket": "zoobuck",
-        "Key": Date.now(),
+        "Key": string(Date.now()),
         "ACL": "public-read"
     })
         .promise()
