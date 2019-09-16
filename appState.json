@@ -1,0 +1,101 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "105e3ecd-d1e3-425f-ab82-d906e105e223": {
+        "id": "105e3ecd-d1e3-425f-ab82-d906e105e223",
+        "parent": null,
+        "name": "zoo",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "ee002c3d-c0c9-406e-a51e-67265109f2a1"
+        ],
+        "isRemovable": false,
+        "filePath": "zoo"
+      },
+      "ee002c3d-c0c9-406e-a51e-67265109f2a1": {
+        "id": "ee002c3d-c0c9-406e-a51e-67265109f2a1",
+        "parent": "105e3ecd-d1e3-425f-ab82-d906e105e223",
+        "name": "lambda.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "zoo/lambda.js",
+        "code": "exports.handler = function(event, context, callback) {\n    console.log(event);\n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [
+          {
+            "resourceName": "apigusEast1ZooMonitoruploadpost",
+            "config": {}
+          }
+        ]
+      }
+    },
+    "rootNode": "105e3ecd-d1e3-425f-ab82-d906e105e223",
+    "openFiles": [
+      "ee002c3d-c0c9-406e-a51e-67265109f2a1"
+    ],
+    "currentFileId": "ee002c3d-c0c9-406e-a51e-67265109f2a1",
+    "resources": {
+      "apigusEast1ZooMonitoruploadpost": {
+        "name": "apigusEast1ZooMonitoruploadpost",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "ZooMonitor",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "upload",
+          "resourcePath": "/upload",
+          "restMethod": "POST",
+          "proxyIntegration": true,
+          "enableCORS": false,
+          "stageMode": 0,
+          "stageName": "prod",
+          "mode": 0
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": null
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {}
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "zoo",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1568631654248
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "zoo",
+      "url": "https://github.com/Kumudikatest/zoo"
+    }
+  }
+}
