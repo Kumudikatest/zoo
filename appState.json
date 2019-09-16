@@ -22,7 +22,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "zoo/uploader.js",
-        "code": "exports.handler = function(event, context, callback) {\n    console.log(event);\n    callback(null, {\n  \"isBase64Encoded\": true,\n  \"statusCode\": 200,\n  \"headers\": {\n    \"headerName\": \"headerValue\"\n  },\n  \"body\": \"...\"\n});\n}",
+        "code": "let AWS = require('aws-sdk');\nconst s3 = new AWS.S3();\n\nexports.handler = function (event, context, callback) {\n    let img = Buffer.from(event.body,\"base64\");\n    console.log(event);\n    s3.putObject({\n        \"Body\": img,\n        \"Bucket\": \"zoobucket\",\n        \"Key\": Date.now(),\n        \"ACL\": \"public-read\"\n    })\n        .promise()\n        .then(data => {\n            callback(null, {\n                \"isBase64Encoded\": true,\n                \"statusCode\": 200,\n                \"body\": \"Success\"\n            });\n        })\n        .catch(err => {\n            console.log(err, err.stack);\n        });\n\n\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -35,7 +35,16 @@
             "resourceName": "apigusEast1ZooMonitoruploadpost",
             "config": {}
           }
-        ]
+        ],
+        "testCases": {
+          "c7886ab0-5607-4aa1-aadc-6ebe22a2b042": {
+            "id": "c7886ab0-5607-4aa1-aadc-6ebe22a2b042",
+            "name": "Test event",
+            "functionId": "ee002c3d-c0c9-406e-a51e-67265109f2a1",
+            "event": "{\r\n    \"key1\": \"value1\",\r\n    \"key2\": \"value2\",\r\n    \"key3\": \"value3\"\r\n}",
+            "eventTemplate": "hello-world"
+          }
+        }
       }
     },
     "rootNode": "105e3ecd-d1e3-425f-ab82-d906e105e223",
@@ -62,6 +71,17 @@
           "stageName": "prod",
           "mode": 0
         }
+      },
+      "s3zoobucket": {
+        "name": "s3zoobucket",
+        "type": "S3",
+        "config": {
+          "mode": 0,
+          "bucket": {
+            "region": "us-east-1",
+            "name": "zoobucket"
+          }
+        }
       }
     },
     "customTemplate": {
@@ -79,7 +99,15 @@
       }
     ],
     "packageJSON": {
-      "dependencies": {}
+      "dependencies": {
+        "aws-sdk": {
+          "name": "aws-sdk",
+          "language": "javascript",
+          "version": "2.176.0",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
     }
   },
   "PROJECT_META": {
@@ -89,7 +117,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1568632014094
+    "lastSave": 1568632965736
   },
   "VCS_STATE": {
     "provider": "GitHub",
